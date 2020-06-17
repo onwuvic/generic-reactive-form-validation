@@ -1,1 +1,38 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --brandColor: #FF715B;
+  --background: rgb(247, 247, 247);
+  --textDark: hsla(0, 0%, 0%, 0.66);
+  --textLight: hsla(0, 0%, 0%, 0.33);
+}
+
+body {
+  background: var(--background);
+  height: 100vh;
+  color: var(--textDark);
+}
+
+.primary-color {
+  color: var(--brandColor) !important;
+}
+
+.is-primary {
+  background-color: var(--brandColor) !important;
+}
+
+.description {
+  margin-top: 1rem;
+  margin-bottom: 1rem !important;
+  color: var(--textLight);
+  font-size: 1.15rem;
+}
+
+small {
+  color: var(--textLight);
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    background: #fff;
+  }
+}

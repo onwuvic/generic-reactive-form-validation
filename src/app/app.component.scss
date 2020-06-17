@@ -1,0 +1,36 @@
+.contain {
+  margin-top: 5rem;
+  border-radius: 10px;
+  background: white;
+}
+
+.left, .right {
+  padding: 4.5rem;
+}
+
+.left {
+  border-right: 5px solid rgb(247, 247, 247);
+}
+
+.u-margin-bottom {
+  margin-bottom: 2.5rem;
+}
+
+.left p {
+  color: var(--textLight);
+  font-size: 1.15rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .contain {
+    margin-top: 0px;
+  }
+
+  .left, .right {
+    padding: 1.5rem;
+  }
+
+  .left {
+    border-right: none;
+  }
+}
