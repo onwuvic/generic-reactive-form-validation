@@ -10,7 +10,7 @@ const VALIDATION_MESSAGES = {
     required: 'Required',
     minlength: 'The password length must be greater than or equal to 8'
   },
-  fristName: {
+  firstName: {
     required: 'Required'
   },
   lastName: {
