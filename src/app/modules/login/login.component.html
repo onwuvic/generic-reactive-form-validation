@@ -1,17 +1,23 @@
 <h1 class="title is-4">Login</h1>
 <p class="description">Welcome back!</p>
-<form action="" autocomplete="false">
+<form (ngSubmit)="login()" [formGroup]="loginForm" novalidate autocomplete="false">
   <div class="field">
     <div class="control">
-      <input class="input is-medium" type="email" placeholder="Email">
+      <input [ngClass]="{'is-danger': displayMessage.email}" class="input is-medium" type="email" placeholder="Email" formControlName="email">
+      <p *ngIf="displayMessage.email" class="help is-danger">
+        {{ displayMessage.email }}
+      </p>
     </div>
   </div>
   <div class="field">
     <div class="control">
-      <input class="input is-medium" type="password" placeholder="Password">
+      <input [ngClass]="{'is-danger': displayMessage.password}" class="input is-medium" type="password" placeholder="Password" formControlName="password">
+      <p *ngIf="displayMessage.password" class="help is-danger">
+        {{ displayMessage.password }}
+      </p>
     </div>
   </div>
-  <button class="button is-block is-primary is-fullwidth is-medium">Login</button>
+  <button type="submit" class="button is-block is-primary is-fullwidth is-medium" [disabled]="loginForm.invalid">Login</button>
   <br>
   <small class="has-text-centered">
     <em>
