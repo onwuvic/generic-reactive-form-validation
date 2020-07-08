@@ -1,8 +1,22 @@
 import { Component, OnInit, ViewChildren, ElementRef, AfterViewInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControlName } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControlName, AbstractControl } from '@angular/forms';
 import { Observable, fromEvent, merge } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { GenericValidator } from '../../shared/generic-validator';
+
+function passwordMatcher(control: AbstractControl): {[key: string]: boolean } | null {
+  const passwordControl = control.get('password');
+  const confirmPasswordControl = control.get('confirmPassword');
+
+  if (passwordControl.pristine || confirmPasswordControl.pristine) {
+    return null;
+  }
+
+  if (passwordControl.value === confirmPasswordControl.value) {
+    return null;
+  }
+  return { match: true };
+}
 
 @Component({
   selector: 'app-sign-up',
@@ -28,8 +42,10 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(8)]],
+      passwordGroup: this.fb.group({
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', Validators.required]
+      }, { validator: passwordMatcher })
     });
   }
 

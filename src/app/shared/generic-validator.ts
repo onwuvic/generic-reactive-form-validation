@@ -10,12 +10,18 @@ const VALIDATION_MESSAGES = {
     required: 'Required',
     minlength: 'The password length must be greater than or equal to 8'
   },
+  confirmPassword: {
+    required: 'Required',
+  },
   firstName: {
     required: 'Required'
   },
   lastName: {
     required: 'Required'
   },
+  passwordGroup: {
+    match: 'Password does not match'
+  }
 };
 
 export class GenericValidator {
@@ -33,8 +39,11 @@ export class GenericValidator {
         // get the properties of each formControl
         const controlProperty = container.controls[controlKey];
         // If it is a FormGroup, process its child controls.
+        console.log('call me', controlProperty)
         if (controlProperty instanceof FormGroup) {
+          // console.log('call me', controlProperty)
           const childMessages = this.processMessages(controlProperty);
+          // console.log('---child', childMessages);
           Object.assign(messages, childMessages);
         } else {
           // Only validate if there are validation messages for the control
@@ -42,6 +51,7 @@ export class GenericValidator {
             messages[controlKey] = '';
             if ((controlProperty.dirty || controlProperty.touched) && controlProperty.errors) {
               // loop through the object of errors
+              console.log('call me', controlProperty.errors)
               Object.keys(controlProperty.errors).map(messageKey => {
                 if (this.validationMessages[controlKey][messageKey]) {
                   messages[controlKey] += this.validationMessages[controlKey][messageKey] + ' ';
@@ -52,6 +62,7 @@ export class GenericValidator {
         }
       }
     }
+    console.log('---->', messages);
     return messages;
   }
 }
