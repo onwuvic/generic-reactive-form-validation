@@ -1,32 +1,50 @@
 <h1 class="title is-4">Sign Up</h1>
 <p class="description">Let's get started!</p>
-<form action="">
+<form (ngSubmit)="signup()" [formGroup]="signupForm" novalidate autocomplete="false">
   <div class="field">
     <div class="control">
-      <input class="input is-medium" type="text" placeholder="First Name">
+      <input [ngClass]="{'is-danger': displayMessage.firstName}" formControlName="firstName" class="input is-medium" type="text" placeholder="First Name">
+      <p *ngIf="displayMessage.firstName" class="help is-danger">
+        {{ displayMessage.firstName }}
+      </p>
     </div>
   </div>
   <div class="field">
     <div class="control">
-      <input class="input is-medium" type="text" placeholder="Last Name">
+      <input [ngClass]="{'is-danger': displayMessage.lastName}" formControlName="lastName" class="input is-medium" type="text" placeholder="Last Name">
+      <p *ngIf="displayMessage.lastName" class="help is-danger">
+        {{ displayMessage.lastName }}
+      </p>
     </div>
   </div>
   <div class="field">
     <div class="control">
-      <input class="input is-medium" type="email" placeholder="Email">
+      <input [ngClass]="{'is-danger': displayMessage.email}" formControlName="email" class="input is-medium" type="email" placeholder="Email">
+      <p *ngIf="displayMessage.email" class="help is-danger">
+        {{ displayMessage.email }}
+      </p>
     </div>
   </div>
-  <div class="field">
-    <div class="control">
-      <input class="input is-medium" type="password" placeholder="Password">
+  <div formGroupName="passwordGroup">
+    <div class="field">
+      <div class="control">
+        <input [ngClass]="{'is-danger': displayMessage.password}" formControlName="password" class="input is-medium" type="password" placeholder="Password">
+        <p *ngIf="displayMessage.password" class="help is-danger">
+          {{ displayMessage.password }}
+        </p>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <input [ngClass]="{'is-danger': displayMessage.confirmPassword}" formControlName="confirmPassword" class="input is-medium" type="password" placeholder="Confirm Password">
+        <p *ngIf="displayMessage.confirmPassword" class="help is-danger">
+          {{ displayMessage.confirmPassword }}
+        </p>
+      </div>
     </div>
   </div>
-  <div class="field">
-    <div class="control">
-      <input class="input is-medium" type="password" placeholder="Confirm Password">
-    </div>
-  </div>
-  <button class="button is-block is-primary is-fullwidth is-medium">Submit</button>
+  <br>
+  <button type="submit" class="button is-block is-primary is-fullwidth is-medium" [disabled]="signupForm.invalid">Submit</button>
   <br>
   <small class="has-text-centered">
     <em>
