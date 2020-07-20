@@ -4,7 +4,7 @@ import { Observable, fromEvent, merge } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { GenericValidator } from '../../shared/generic-validator';
 
-function passwordMatcher(control: AbstractControl): {[key: string]: boolean } | null {
+function passwordMatcher(control: AbstractControl): void | null {
   const passwordControl = control.get('password');
   const confirmPasswordControl = control.get('confirmPassword');
 
@@ -15,7 +15,8 @@ function passwordMatcher(control: AbstractControl): {[key: string]: boolean } | 
   if (passwordControl.value === confirmPasswordControl.value) {
     return null;
   }
-  return { match: true };
+
+  confirmPasswordControl.setErrors({ match: true });
 }
 
 @Component({
@@ -42,11 +43,9 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      passwordGroup: this.fb.group({
-        password: ['', [Validators.required, Validators.minLength(8)]],
-        confirmPassword: ['', Validators.required]
-      }, { validator: passwordMatcher })
-    });
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', Validators.required]
+    }, { validator: passwordMatcher });
   }
 
   ngAfterViewInit(): void {
