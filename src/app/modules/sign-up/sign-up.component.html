@@ -25,22 +25,20 @@
       </p>
     </div>
   </div>
-  <div formGroupName="passwordGroup">
-    <div class="field">
-      <div class="control">
-        <input [ngClass]="{'is-danger': displayMessage.password}" formControlName="password" class="input is-medium" type="password" placeholder="Password">
-        <p *ngIf="displayMessage.password" class="help is-danger">
-          {{ displayMessage.password }}
-        </p>
-      </div>
+  <div class="field">
+    <div class="control">
+      <input [ngClass]="{'is-danger': displayMessage.password || displayMessage.confirmPassword }" formControlName="password" class="input is-medium" type="password" placeholder="Password">
+      <p *ngIf="displayMessage.password" class="help is-danger">
+        {{ displayMessage.password }}
+      </p>
     </div>
-    <div class="field">
-      <div class="control">
-        <input [ngClass]="{'is-danger': displayMessage.confirmPassword}" formControlName="confirmPassword" class="input is-medium" type="password" placeholder="Confirm Password">
-        <p *ngIf="displayMessage.confirmPassword" class="help is-danger">
-          {{ displayMessage.confirmPassword }}
-        </p>
-      </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <input [ngClass]="{'is-danger': displayMessage.confirmPassword}" formControlName="confirmPassword" class="input is-medium" type="password" placeholder="Confirm Password">
+      <p *ngIf="displayMessage.confirmPassword" class="help is-danger">
+        {{ displayMessage.confirmPassword }}
+      </p>
     </div>
   </div>
   <br>
