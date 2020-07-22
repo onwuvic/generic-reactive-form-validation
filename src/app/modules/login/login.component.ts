@@ -16,11 +16,24 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   // Use with the generic validation message class
   displayMessage: { [key: string]: string } = {};
+  private validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
 
   constructor(private fb: FormBuilder) {
+    // Defines all of the validation messages for the form.
+    this.validationMessages = {
+      email: {
+        required: 'Required',
+        email: 'This email is invalid'
+      },
+      password: {
+        required: 'Required',
+        minlength: 'The password length must be greater than or equal to 8'
+      }
+    };
     // Define an instance of the validator for use with this form,
-    this.genericValidator = new GenericValidator();
+    // passing in this form's set of validation messages.
+    this.genericValidator = new GenericValidator(this.validationMessages);
   }
 
   ngOnInit() {
