@@ -3,21 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControlName, AbstractControl } 
 import { Observable, fromEvent, merge } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { GenericValidator } from '../../shared/generic-validator';
-
-function passwordMatcher(control: AbstractControl): void | null {
-  const passwordControl = control.get('password');
-  const confirmPasswordControl = control.get('confirmPassword');
-
-  if (passwordControl.pristine || confirmPasswordControl.pristine) {
-    return null;
-  }
-
-  if (passwordControl.value === confirmPasswordControl.value) {
-    return null;
-  }
-
-  confirmPasswordControl.setErrors({ match: true });
-}
+import { PasswordMatcher } from '../../shared/password-matcher';
 
 @Component({
   selector: 'app-sign-up',
@@ -45,7 +31,7 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]],
       confirmPassword: ['', Validators.required]
-    }, { validator: passwordMatcher });
+    }, { validator: PasswordMatcher.match });
   }
 
   ngAfterViewInit(): void {
